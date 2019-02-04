@@ -1,8 +1,9 @@
 import pygame
+import game_functions as gf  # 给导入的模块game_functions 指定了别名gf
 
 from settings import Settings
 from ship import Ship
-import game_functions as gf  # 给导入的模块game_functions 指定了别名gf
+from pygame.sprite import Group
 
 
 def run_game():
@@ -15,13 +16,22 @@ def run_game():
 
     # 创建一艘飞船
     ship = Ship(ai_settings, screen)
+    # 创建一个用于存储子弹的编组
+    bullets = Group()
 
     # 开始游戏的主循环
     while True:
-
-        gf.check_events(ship)
+        gf.check_events(ai_settings, screen, ship, bullets)
         ship.update()
-        gf.update_screen(ai_settings, screen, ship)
+        bullets.update()
+
+        # 删除已消失的子弹
+        for bullet in bullets.copy():
+            if bullet.rect.bottom <= 0:
+                bullets.remove(bullet)
+        print(len(bullets))
+            
+        gf.update_screen(ai_settings, screen, ship, bullets)
 
 
 run_game()
