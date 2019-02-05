@@ -21,7 +21,7 @@ def run_game():
     # 创建一个外球人的编组
     aliens = Group()
     # 创建外球人群
-    gf.create_fleet(ai_settings, screen, aliens)
+    gf.create_fleet(ai_settings, screen, ship, aliens)
 
     # 开始游戏的主循环
     while True:
