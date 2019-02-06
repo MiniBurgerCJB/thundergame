@@ -13,8 +13,8 @@ def check_keydown_events(event, ai_settings, screen, ship, bullets):
         ship.moving_left = True
     elif event.key == pygame.K_SPACE:
         fire_bullet(ai_settings, screen, ship, bullets)
-    # 添加一个结束游戏的快捷键q
-    elif event.key == pygame.K_q:
+    # 添加一个结束游戏的快捷键esc
+    elif event.key == pygame.K_ESCAPE:
         sys.exit()
 
 
@@ -53,7 +53,12 @@ def check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets)
 
 def check_play_button(ai_setting, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y):
     """在玩家单击Play按钮时开始游戏"""
-    if play_button.rect.collidepoint(mouse_x, mouse_y):
+    button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
+    if button_clicked and not stats.game_active:
+
+        # 隐藏光标
+        pygame.mouse.set_visible(False)
+
         # 重置游戏统计信息
         stats.reset_stats()
         stats.game_active = True
@@ -178,6 +183,7 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
 
     else:
         stats.game_active = False
+        pygame.mouse.set_visible(True)
 
 
 def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
