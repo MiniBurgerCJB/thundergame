@@ -2,6 +2,7 @@ import sys
 import pygame
 from bullet import Bullet
 from alien import Alien
+from time import sleep
 
 
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
@@ -60,7 +61,7 @@ def update_screen(ai_settings, screen, ship, aliens, bullets):
     pygame.display.flip()
 
 
-def update_bullets(aliens, bullets):
+def update_bullets(ai_settings, screen, ship, aliens, bullets):
     """更新子弹的位置，并删除已消失的子弹"""
     # 更新子弹的位置
     bullets.update()
@@ -68,9 +69,19 @@ def update_bullets(aliens, bullets):
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
+
+    check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets)
+
+
+def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
     # 检查是否有子弹击中外球人，如果有，删除该子弹与外球人
     collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
-    
+
+    if len(aliens) == 0:
+        # 删除现有的子弹并新建一群外球人
+        bullets.empty()
+        create_fleet(ai_settings, screen, ship, aliens)
+
 
 def get_number_aliens_x(ai_settings, alien_width):
     """计算每行可容纳多少个外球人"""
@@ -124,7 +135,30 @@ def change_fleet_direction(ai_settings, aliens):
     ai_settings.fleet_direction *= -1
 
 
-def update_aliens(ai_settings, aliens):
+def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
+    """响应被外球人撞到的飞船"""
+    # 将ships_left减1
+    stats.ships_left -= 1
+
+    # 清空外球人列表和子弹列表
+    aliens.empty()
+    bullets.empty()
+
+    # 创建一群新的外球人，并把飞船放到屏幕底端中央
+    create_fleet(ai_settings, screen, ship, aliens)
+    ship.center_ship()
+
+    # 暂停
+    sleep(0.5)
+
+
+def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     """ 检查是否有外星人位于屏幕边缘，并更新整群外星人的位置"""
     check_fleet_edges(ai_settings, aliens)
     aliens.update()
+
+    # 检测外球人和飞船是否碰撞
+    if pygame.sprite.spritecollideany(ship, aliens):
+        ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+
+
