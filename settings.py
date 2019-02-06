@@ -22,7 +22,7 @@ class Settings():
         self.bullet_allowed = 5
 
         # 外球人的设置
-        self.alien_speed_factor = 1
+        self.alien_speed_factor = 5
         self.fleet_drop_speed = 10
         # fleet_direction为1表示向右，-1为向左
         self.fleet_direction = 1
