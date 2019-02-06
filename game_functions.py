@@ -2,7 +2,6 @@ import sys
 import pygame
 from bullet import Bullet
 from alien import Alien
-from background import Background
 from time import sleep
 
 
@@ -73,11 +72,12 @@ def check_play_button(ai_setting, screen, stats, play_button, ship, aliens, bull
         ship.center_ship()
 
 
-def update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button, background):
+def update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button, background, background2):
     # 更新屏幕上的图像，并切换到新屏幕
     # 每次循环都重新绘制屏幕
     screen.fill(ai_settings.bg_color)
     background.blitme()
+    background2.blitme()
 
     # 在飞船和外球人后面重新绘制所有子弹
     for bullet in bullets.sprites():
@@ -85,7 +85,6 @@ def update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button
 
     ship.blitme()
     aliens.draw(screen)
-
 
     # 如果游戏处于非活动状态，就绘制Play按钮
     if not stats.game_active:
@@ -215,14 +214,26 @@ def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
 
 
 def update_background(background, screen):
-    screen_rect = screen.get_rect()
-    # 不断下移背景图的位置
 
+    screen_rect = screen.get_rect()
+
+    # 不断下移背景图的位置
     background.update()
+
     # 上移离开画面的背景图
     if background.rect.top >= screen_rect.bottom:
-        background.rect.y -= 1440
-        
+        background.y -= 1440
 
+
+def update_background2(background2, screen):
+
+    screen_rect = screen.get_rect()
+
+    # 不断下移背景图的位置
+    background2.update()
+
+    # 上移离开画面的背景图
+    if background2.rect.top >= screen_rect.bottom:
+        background2.y -= 1440
 
 

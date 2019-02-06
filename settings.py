@@ -10,16 +10,16 @@ class Settings():
         self.bg_color = (230, 230, 230)
 
         # 飞船的设置
-        self.ship_speed_factor = 1.5
+        self.ship_speed_factor = 5
         self.ship_limit = 1
 
         # 子弹的设置
-        self.bullet_speed_factor = 3
-        self.bullet_width = 3
-        self.bullet_height = 15
-        self.bullet_color = 60, 60, 60
+        self.bullet_speed_factor = 4
+        self.bullet_width = 5
+        self.bullet_height = 18
+        self.bullet_color = 40, 40, 40
         # # 未消失的子弹数上限
-        self.bullet_allowed = 10
+        self.bullet_allowed = 20
 
         # 外球人的设置
         self.alien_speed_factor = 1
@@ -28,6 +28,6 @@ class Settings():
         self.fleet_direction = 1
 
         # 背景图片的设置
-        self.background_speed_factor = 3
+        self.background_speed_factor = 8
 
 

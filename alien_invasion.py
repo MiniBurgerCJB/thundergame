@@ -6,6 +6,7 @@ from game_stats import GameStats
 from button import Button
 from ship import Ship
 from background import Background
+from background2 import Background2
 from pygame.sprite import Group
 
 
@@ -31,19 +32,21 @@ def run_game():
     gf.create_fleet(ai_settings, screen, ship, aliens)
     # 创建背景
     background = Background(ai_settings, screen)
+    background2 = Background2(ai_settings, screen)
 
     # 开始游戏的主循环
     while True:
         gf.check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets)
 
         gf.update_background(background, screen)
+        gf.update_background2(background2, screen)
 
         if stats.game_active:
             ship.update()
             gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
             gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
 
-        gf.update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button, background)
+        gf.update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button, background, background2)
 
 
 run_game()
