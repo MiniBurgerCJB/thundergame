@@ -51,10 +51,15 @@ def check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets)
             check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y)
 
 
-def check_play_button(ai_setting, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y):
+def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y):
     """在玩家单击Play按钮时开始游戏"""
+
     button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
+
     if button_clicked and not stats.game_active:
+
+        # 重置游戏设置
+        ai_settings.initialize_dynamic_settings()
 
         # 隐藏光标
         pygame.mouse.set_visible(False)
@@ -68,7 +73,7 @@ def check_play_button(ai_setting, screen, stats, play_button, ship, aliens, bull
         bullets.empty()
 
         # 创建一群新外球人，并让飞船居中
-        create_fleet(ai_setting, screen, ship, aliens)
+        create_fleet(ai_settings, screen, ship, aliens)
         ship.center_ship()
 
 
@@ -113,6 +118,7 @@ def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
     if len(aliens) == 0:
         # 删除现有的子弹并新建一群外球人
         bullets.empty()
+        ai_settings.increase_speed()
         create_fleet(ai_settings, screen, ship, aliens)
 
 
@@ -235,5 +241,3 @@ def update_background2(background2, screen):
     # 上移离开画面的背景图
     if background2.rect.top >= screen_rect.bottom:
         background2.y -= 1440
-
-
