@@ -122,7 +122,8 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, 
         for aliens in collisions.values():
             stats.score += ai_settings.alien_points
             sb.prep_score()
-
+        check_high_score(stats, sb)
+    
     if len(aliens) == 0:
         # 删除现有的子弹并新建一群外球人
         bullets.empty()
@@ -225,6 +226,13 @@ def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
 
     # 查是否有外球人位于屏幕底端
     check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets)
+
+
+def check_high_score(stats, sb):
+    """检查是否诞生了最高得分"""
+    if stats.score > stats.high_score:
+        stats.high_score = stats.score
+        sb.prep_high_score()
 
 
 def update_background(background, screen):
