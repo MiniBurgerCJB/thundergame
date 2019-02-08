@@ -13,11 +13,11 @@ class Settings():
         self.ship_limit = 2
 
         # 子弹的设置
-        self.bullet_width = 5
-        self.bullet_height = 18
+        self.bullet_width = 10
+        self.bullet_height = 20
         self.bullet_color = 40, 40, 40
         # # 未消失的子弹数上限
-        self.bullet_allowed = 10
+        self.bullet_allowed = 200
 
         # 外球人的设置
         self.fleet_drop_speed = 10
@@ -35,7 +35,7 @@ class Settings():
         # 飞船的设置
         self.ship_speed_factor = 5
         # 子弹的设置
-        self.bullet_speed_factor = 4
+        self.bullet_speed_factor = 6
         # 外球人的设置
         self.alien_speed_factor = 1.5
 

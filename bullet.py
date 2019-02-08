@@ -1,4 +1,5 @@
 import pygame
+
 from pygame.sprite import Sprite
 
 
@@ -31,3 +32,4 @@ class Bullet(Sprite):
     def draw_bullet(self):
         """在屏幕上绘制子弹"""
         pygame.draw.rect(self.screen, self.color, self.rect)
+
