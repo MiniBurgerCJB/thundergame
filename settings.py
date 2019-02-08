@@ -10,7 +10,7 @@ class Settings():
         self.bg_color = (230, 230, 230)
 
         # 飞船的设置
-        self.ship_limit = 3
+        self.ship_limit = 2
 
         # 子弹的设置
         self.bullet_width = 5
@@ -37,7 +37,7 @@ class Settings():
         # 子弹的设置
         self.bullet_speed_factor = 4
         # 外球人的设置
-        self.alien_speed_factor = 1
+        self.alien_speed_factor = 1.5
 
         # fleet_direction为1表示向右，-1为向左
         self.fleet_direction = 1
