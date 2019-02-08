@@ -10,6 +10,8 @@ from background import Background
 from background2 import Background2
 from pygame.sprite import Group
 
+import datetime
+
 
 def run_game():
     # 初始化游戏并创建一个屏幕对象
@@ -38,6 +40,9 @@ def run_game():
     background2 = Background2(ai_settings, screen)
 
     # 开始游戏的主循环
+    should_shoot_time = datetime.datetime.now()
+    true_now_time = datetime.datetime.now()
+    one_second = datetime.timedelta(0, 0, 100000)
     while True:
         gf.check_events(ai_settings, screen, stats, sb, play_button, ship, aliens, bullets)
 
@@ -46,7 +51,11 @@ def run_game():
 
         if stats.game_active:
             ship.update()
-            gf.fire_bullet(ai_settings, screen, ship, bullets)
+            if true_now_time > should_shoot_time:
+                gf.fire_bullet(ai_settings, screen, ship, bullets)
+                should_shoot_time = datetime.datetime.now() + one_second
+            true_now_time = datetime.datetime.now()
+
             gf.update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets)
             gf.update_aliens(ai_settings, screen, stats, sb, ship, aliens, bullets)
 
